@@ -1,8 +1,12 @@
+import ErrorClassificationDashboard from "./components/ErrorClassificationDashborad"
+
 function App() {
 
   return (
     <>
-      Hello World
+      <div className="Errordashborad">
+        <ErrorClassificationDashboard/>
+      </div>
     </>
   )
 }
