@@ -15,7 +15,11 @@
     "react": "^18.3.1",
     "react-bootstrap": "^2.10.5",
     "react-dom": "^18.3.1",
+<<<<<<< HEAD
     "recharts": "^2.13.0"
+=======
+    "react-router-dom": "^6.27.0"
+>>>>>>> 4a27cb39a47a7527d9d1b70b3a9ab03efb8b1dfa
   },
   "devDependencies": {
     "@eslint/js": "^9.11.1",
