@@ -1,9 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { AlertCircle, BarChart2, FileSearch, Layers, Zap, Sun, Moon } from "lucide-react";
+import { useNavigate } from 'react-router-dom'; // Import useNavigate
 import img1 from '../../assets/rajnish-mohan.png';
 import vid from '../../assets/vid.mp4';
-
-
 
 export default function ErrorSolverHomepage() {
   const [theme, setTheme] = useState('light');
@@ -14,6 +13,12 @@ export default function ErrorSolverHomepage() {
 
   const toggleTheme = () => {
     setTheme(prevTheme => prevTheme === 'light' ? 'dark' : 'light');
+  };
+
+  const navigate = useNavigate(); // Initialize useNavigate hook
+
+  const handleClick = () => {
+    navigate('/login-signup'); // Navigate to login-signup page
   };
 
   return (
@@ -38,7 +43,7 @@ export default function ErrorSolverHomepage() {
           <div className="hero-content">
             <h1 className="hero-title">Effortlessly Resolve System Errors in Real Time</h1>
             <p className="hero-subtitle">Analyze, classify, and resolve errors with advanced AI-powered insights.</p>
-            <button className="cta-button">Get Started</button>
+            <button className="cta-button" onClick={handleClick}>Get Started</button>
           </div>
         </section>
         <section className="features">
@@ -77,15 +82,14 @@ export default function ErrorSolverHomepage() {
           <div className="container">
             <h2 className="section-title">See It in Action</h2>
             <div className="demo-video">
-            <video
-            src={vid}
-            alt="Product demo video placeholder"
-            className="demo-image"
-            muted
-            autoPlay
-            loop // Optional: if you want the video to loop
-            />
-
+              <video
+                src={vid}
+                alt="Product demo video placeholder"
+                className="demo-image"
+                muted
+                autoPlay
+                loop
+              />
             </div>
             <button className="cta-button">Watch Demo</button>
           </div>
@@ -181,7 +185,7 @@ export default function ErrorSolverHomepage() {
         }
 
         body {
-        font-family: 'Poppins', sans-serif;
+          font-family: 'Poppins', sans-serif;
           transition: background-color 0.3s ease;
           margin:0;
           padding:0;
@@ -398,7 +402,7 @@ export default function ErrorSolverHomepage() {
           padding: 1rem;
           background-color: var(--bg-secondary);
           border-radius: 0.25rem;
-          transition: background-color  0.3s ease;
+          transition: background-color 0.3s ease;
         }
         .faq-question:hover {
           background-color: var(--accent-color);

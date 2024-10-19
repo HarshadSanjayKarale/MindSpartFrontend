@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Moon, Sun, ArrowLeft } from 'lucide-react';
+import { useNavigate } from 'react-router-dom'; 
 
 // Load the Poppins font using a link tag
 const fontLink = document.createElement('link');
@@ -24,6 +25,7 @@ export default function ErrorClassificationDashboard() {
   const [infoCount, setInfoCount] = useState(0);
   const [warningCount, setWarningCount] = useState(0);
   const [isDarkMode, setIsDarkMode] = useState(false);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -52,6 +54,10 @@ export default function ErrorClassificationDashboard() {
 
     return () => clearInterval(interval);
   }, []);
+
+  const backbuttonfunction = () => {
+    navigate('/error-dashboard'); // Redirect to error classification dashboard
+  };
 
   const getErrorTypeStyle = (type) => {
     switch (type) {
@@ -223,7 +229,7 @@ export default function ErrorClassificationDashboard() {
     <div style={styles.body}>
     <div style={styles.container}>
       <div style={styles.header}>
-        <button style={styles.backButton} onClick={() => console.log('Back button clicked')}>
+        <button style={styles.backButton} onClick={backbuttonfunction}>
           <ArrowLeft size={20} style={{ marginRight: '5px' }} />
           Back
         </button>

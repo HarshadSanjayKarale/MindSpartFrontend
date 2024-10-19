@@ -1,7 +1,9 @@
 import React from 'react';
-// import './ErrorDashboard.css';
+import { useNavigate } from 'react-router-dom'; // Import useNavigate hook
 
 export default function ErrorDashboard() {
+  const navigate = useNavigate(); // Initialize useNavigate
+
   // Mock data for critical errors
   const criticalErrors = [
     { id: 1, description: "Server overload on 10/15/2024", severity: "Critical" },
@@ -15,10 +17,26 @@ export default function ErrorDashboard() {
     resolvedErrors: 145,
   };
 
+  // Function to handle "View Error Log" button click
+  const handleViewErrorLog = () => {
+    navigate('/error-classification-dashboard'); // Redirect to error classification dashboard
+  };
+
+  // Function to handle "Go to Analytics Dashboard" button click
+  const handleAnalyticsDashboard = () => {
+    navigate('/error-analytics-dashboard'); // Redirect to error analytics dashboard
+  };
+
+  const handleAISolver = () => {
+    // You can define navigation logic here, for example:
+    navigate('/ai-solver'); // This will navigate to the AI Solver page
+  };
+  
+
   return (
     <div className="error-dashboard">
       <header>
-        <h1>Welcome,Rajnish Mohan</h1>
+        <h1>Welcome, Harshad Karale</h1>
         <button className="notification-bell">
           🔔
           <span className="notification-count">{criticalErrors.length}</span>
@@ -45,21 +63,32 @@ export default function ErrorDashboard() {
         </div>
 
         <div className="navigation-buttons">
-          <button>
-            <span className="icon">📁</span>
-            <div>
-              <h3>View Error Log</h3>
-              <p>Browse all logged errors</p>
-            </div>
-          </button>
-          <button>
-            <span className="icon">📊</span>
-            <div>
-              <h3>Go to Analytics Dashboard</h3>
-              <p>View error analytics and trends</p>
-            </div>
-          </button>
-        </div>
+  <button onClick={handleViewErrorLog}>
+    <span className="icon">📁</span>
+    <div>
+      <h3>View Error Log</h3>
+      <p>Browse all logged errors</p>
+    </div>
+  </button>
+  
+  <button onClick={handleAnalyticsDashboard}>
+    <span className="icon">📊</span>
+    <div>
+      <h3>Go to Analytics Dashboard</h3>
+      <p>View error analytics and trends</p>
+    </div>
+  </button>
+
+  {/* New button for AI Solver */}
+  <button onClick={handleAISolver}>
+    <span className="icon">🤖</span>
+    <div>
+      <h3>AI Solver</h3>
+      <p>Use AI to solve errors</p>
+    </div>
+  </button>
+</div>
+
 
         <div className="system-status">
           <h2>System Status Summary</h2>
@@ -92,7 +121,7 @@ export default function ErrorDashboard() {
       <style>{`
       @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap');
         .error-dashboard {
-            font-family: 'Poppins', sans-serif;
+          font-family: 'Poppins', sans-serif;
           max-width: 1200px;
           margin: 0 auto;
           padding: 20px;
@@ -159,7 +188,6 @@ export default function ErrorDashboard() {
         }
 
         .navigation-buttons {
-  
           display: grid;
           grid-template-columns: 1fr 1fr;
           gap: 20px;
@@ -168,19 +196,20 @@ export default function ErrorDashboard() {
 
         .navigation-buttons button {
           font-family: 'Poppins', sans-serif;
-          font-size:11px;
+          font-size: 11px;
           display: flex;
           align-items: center;
-          border-radius:10px;
+          border-radius: 10px;
           padding: 15px;
           background-color: #f5f5f5;
           border: 1px solid #e0e0e0;
           cursor: pointer;
           text-align: left;
         }
-           .navigation-buttons button:hover {
-          background-color:#e1e1e1;
-          box-shadow:1px 1px 1px #e1e1e1;
+
+        .navigation-buttons button:hover {
+          background-color: #e1e1e1;
+          box-shadow: 1px 1px 1px #e1e1e1;
         }
 
         .navigation-buttons .icon {
@@ -210,7 +239,6 @@ export default function ErrorDashboard() {
           font-size: 24px;
           font-weight: bold;
         }
-
 
         @media (max-width: 768px) {
           .navigation-buttons,
