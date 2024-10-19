@@ -9,21 +9,30 @@ document.head.appendChild(fontLink);
 
 const AISolver = () => {
   const [error, setError] = useState('');
-  const [description, setDescription] = useState('');
-  const [codeSnippet, setCodeSnippet] = useState('');
   const [output, setOutput] = useState(null);
+  const [loading, setLoading] = useState(false); // Loader state
   const [darkMode, setDarkMode] = useState(false);
 
   const handleSolveError = async () => {
-    const mockOutput = {
-      classification: 'Syntax Error',
-      severity: 'Medium',
-      impact: 'Localized to function',
-      possibleSolution: 'Check for missing semicolon or bracket in the code snippet.',
-    };
+    setLoading(true); // Start loader
+    try {
+      const response = await fetch('https://6f97-210-212-183-60.ngrok-free.app/analyze', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          error_message: error, // Pass the error message input to the API
+        }),
+      });
 
-    await new Promise((resolve) => setTimeout(resolve, 1000));
-    setOutput(mockOutput);
+      const result = await response.json();
+      console.log(result); // Print the output to the console
+      setOutput(result); // Set the output from the API
+    } catch (err) {
+      console.error('Error fetching the API:', err);
+    }
+    setLoading(false); // Stop loader when result is ready
   };
 
   const handleToggleDarkMode = () => {
@@ -51,25 +60,7 @@ const AISolver = () => {
               value={error}
               onChange={(e) => setError(e.target.value)}
               placeholder="Paste your error message here"
-            />
-          </div>
-          <div className="form-group">
-            <label htmlFor="description">Description (Optional)</label>
-            <textarea
-              id="description"
-              value={description}
-              onChange={(e) => setDescription(e.target.value)}
-              placeholder="Provide any additional context"
-            />
-          </div>
-          <div className="form-group">
-            <label htmlFor="codeSnippet">Code Snippet</label>
-            <textarea
-              id="codeSnippet"
-              value={codeSnippet}
-              onChange={(e) => setCodeSnippet(e.target.value)}
-              placeholder="Paste your code snippet here"
-              rows={5}
+              style={{ height: '200px', fontFamily: 'Poppins', fontSize: '14px' }} // Increase height and change font style
             />
           </div>
           <button onClick={handleSolveError} className="solve-button">
@@ -77,32 +68,60 @@ const AISolver = () => {
           </button>
         </div>
 
-        {output && (
+        {/* Show loader when loading */}
+        {loading && <div className="loader">Loading...</div>}
+
+        {/* Show result when loading is done */}
+        {!loading && output && (
           <div className="output-card">
             <h2>AI Analysis Result</h2>
             <div className="output-content">
               <div className="result-group">
                 <h3>Classification</h3>
                 <div className="result-card">
-                  <p>{output.classification}</p>
+                  <p>{output.aiAnalysis?.classification || 'N/A'}</p>
                 </div>
               </div>
               <div className="result-group">
                 <h3>Severity</h3>
                 <div className="result-card">
-                  <p>{output.severity}</p>
+                  <p>{output.aiAnalysis?.severity || 'N/A'}</p>
                 </div>
               </div>
               <div className="result-group">
-                <h3>Impact</h3>
+                <h3>Core Issue</h3>
                 <div className="result-card">
-                  <p>{output.impact}</p>
+                  <p>{output.aiAnalysis?.analysis?.coreIssue || 'N/A'}</p>
                 </div>
               </div>
               <div className="result-group">
-                <h3>Possible Solution</h3>
+                <h3>Likely Cause</h3>
                 <div className="result-card">
-                  <p>{output.possibleSolution}</p>
+                  <ul>
+                    {output.aiAnalysis?.likelyCause?.map((cause, index) => (
+                      <li key={index}>{cause}</li>
+                    )) || 'N/A'}
+                  </ul>
+                </div>
+              </div>
+              <div className="result-group">
+                <h3>Suggested Solution</h3>
+                <div className="result-card">
+                  <ul>
+                    {output.aiAnalysis?.suggestedSolution?.map((solution, index) => (
+                      <li key={index}>{solution}</li>
+                    )) || 'N/A'}
+                  </ul>
+                </div>
+              </div>
+              <div className="result-group">
+                <h3>Tips</h3>
+                <div className="result-card">
+                  <ul>
+                    {output.aiAnalysis?.tips?.map((tip, index) => (
+                      <li key={index}>{tip}</li>
+                    )) || 'N/A'}
+                  </ul>
                 </div>
               </div>
             </div>
@@ -202,6 +221,7 @@ const AISolver = () => {
           background-color: rgba(255, 255, 255, 0.7);
           resize: none;
           transition: border-color 0.3s ease;
+          height: 200px; /* Set the height for the textarea */
         }
 
         textarea:focus {
@@ -244,7 +264,7 @@ const AISolver = () => {
         }
 
         .result-group h3 {
-          color: ${darkMode ? '#87CEFA' : '#000'}; /* Adjusted to match theme */
+          color: ${darkMode ? '#87CEFA' : '#000'};
           margin-bottom: 5px;
         }
 
@@ -254,6 +274,12 @@ const AISolver = () => {
           padding: 15px;
           box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
           border: 1px solid ${darkMode ? 'rgba(255, 255, 255, 0.3)' : '#87CEFA'};
+        }
+
+        .loader {
+          margin-top: 20px;
+          font-size: 18px;
+          color: ${darkMode ? '#ffffff' : '#333'};
         }
 
         @media (max-width: 600px) {
