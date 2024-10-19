@@ -17,7 +17,8 @@ const fetchLogsFromAPI = async () => {
 export default function ErrorClassificationDashboard() {
   const [errors, setErrors] = useState([]);
   const [selectedError, setSelectedError] = useState(null);
-  const [highAlerts, setHighAlerts] = useState(0);  // Updated to High
+  const [highAlerts, setHighAlerts] = useState(0);
+  const [criticalCount, setCriticalCount] = useState(0); // New state for critical count
   const [infoCount, setInfoCount] = useState(0);
   const [warningCount, setWarningCount] = useState(0);
   const [isDarkMode, setIsDarkMode] = useState(false);
@@ -50,12 +51,13 @@ export default function ErrorClassificationDashboard() {
 
         setErrors(parsedLogs);
 
-        // Update the counts based on 'High' instead of 'Critical'
         const high = parsedLogs.filter(log => log.analysis?.severity === 'High').length;
+        const critical = parsedLogs.filter(log => log.analysis?.severity === 'Critical').length; // New logic for critical
         const info = parsedLogs.filter(log => log.analysis?.severity === 'Info').length;
         const warning = parsedLogs.filter(log => log.analysis?.severity === 'Warning').length;
 
         setHighAlerts(high);
+        setCriticalCount(critical); // Update critical count
         setInfoCount(info);
         setWarningCount(warning);
       });
@@ -70,7 +72,9 @@ export default function ErrorClassificationDashboard() {
 
   const getErrorTypeStyle = (severity) => {
     switch (severity) {
-      case 'High':  // Changed to High
+      case 'Critical': // Style for critical
+        return { backgroundColor: '#5452529b', color: 'white' };
+      case 'High':
         return { backgroundColor: 'rgb(231, 64, 64)', color: 'white' };
       case 'Warning':
         return { backgroundColor: 'orange', color: 'white' };
@@ -117,10 +121,23 @@ export default function ErrorClassificationDashboard() {
       display: 'flex',
       alignItems: 'center',
     },
+    criticalButton1: {
+      padding: '10px 15px',
+      border: '1px solid #5452529b', // New button style for critical
+      backgroundColor: '#5452529b',
+      color: '#ffffff',
+      cursor: 'pointer',
+      fontFamily: 'Poppins, sans-serif',
+      borderRadius: '5px',
+      margin: '0 5px',
+      transition: 'background-color 0.3s, color 0.3s',
+      fontSize: '0.9em',
+      boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)',
+    },
     criticalButton: {
       padding: '10px 15px',
-      border: '1px solid #dc3545',
-      backgroundColor: '#dc3545',
+      border: '1px solid #800000', // New button style for critical
+      backgroundColor: '#f13939',
       color: '#ffffff',
       cursor: 'pointer',
       fontFamily: 'Poppins, sans-serif',
@@ -246,8 +263,11 @@ export default function ErrorClassificationDashboard() {
           </button>
           <h1>AI Error Classification Dashboard</h1>
           <div style={styles.headerButtons}>
-            <button style={styles.criticalButton} onClick={() => setHighAlerts(0)}>  {/* Updated label */}
-              High Alerts: {highAlerts}  {/* Display high alerts */}
+            <button style={styles.criticalButton1} onClick={() => setCriticalCount(0)}>  {/* New critical button */}
+              Critical Alerts: {criticalCount}
+            </button>
+            <button style={styles.criticalButton} onClick={() => setHighAlerts(0)}>
+              High Alerts: {highAlerts}
             </button>
             <button style={styles.infoButton} onClick={() => setInfoCount(0)}>
               Info: {infoCount}
