@@ -28,10 +28,8 @@ export default function ErrorDashboard() {
   };
 
   const handleAISolver = () => {
-    // You can define navigation logic here, for example:
     navigate('/ai-solver'); // This will navigate to the AI Solver page
   };
-  
 
   return (
     <div className="error-dashboard">
@@ -58,37 +56,36 @@ export default function ErrorDashboard() {
                   </div>
                 </div>
               </li>
-            ))}
+            ))} 
           </ul>
         </div>
 
         <div className="navigation-buttons">
-  <button onClick={handleViewErrorLog}>
-    <span className="icon">📁</span>
-    <div>
-      <h3>View Error Log</h3>
-      <p>Browse all logged errors</p>
-    </div>
-  </button>
-  
-  <button onClick={handleAnalyticsDashboard}>
-    <span className="icon">📊</span>
-    <div>
-      <h3>Go to Analytics Dashboard</h3>
-      <p>View error analytics and trends</p>
-    </div>
-  </button>
+          <button onClick={handleViewErrorLog}>
+            <span className="icon">📁</span>
+            <div>
+              <h3>View Error Log</h3>
+              <p>Browse all logged errors</p>
+            </div>
+          </button>
 
-  {/* New button for AI Solver */}
-  <button onClick={handleAISolver}>
-    <span className="icon">🤖</span>
-    <div>
-      <h3>AI Solver</h3>
-      <p>Use AI to solve errors</p>
-    </div>
-  </button>
-</div>
+          <button onClick={handleAnalyticsDashboard}>
+            <span className="icon">📊</span>
+            <div>
+              <h3>Go to Analytics Dashboard</h3>
+              <p>View error analytics and trends</p>
+            </div>
+          </button>
 
+          {/* New button for AI Solver */}
+          <button onClick={handleAISolver}>
+            <span className="icon">🤖</span>
+            <div>
+              <h3>AI Solver</h3>
+              <p>Use AI to solve errors</p>
+            </div>
+          </button>
+        </div>
 
         <div className="system-status">
           <h2>System Status Summary</h2>
@@ -120,134 +117,152 @@ export default function ErrorDashboard() {
 
       <style>{`
       @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap');
-        .error-dashboard {
-          font-family: 'Poppins', sans-serif;
-          max-width: 1200px;
-          margin: 0 auto;
-          padding: 20px;
-        }
 
-        header {
-          display: flex;
-          justify-content: space-between;
-          align-items: center;
-          margin-bottom: 20px;
-        }
+      html {
+        font-size: 20px; /* Base font size remains increased */
+      }
 
-        h1 {
-          font-size: 24px;
-          color: #333;
-        }
+      .error-dashboard {
+        font-family: 'Poppins', sans-serif;
+        max-width: 1400px; /* Increased max-width */
+        margin: 0 auto;
+        padding: 20px;
+      }
 
-        .notification-bell {
-          position: relative;
-          background: none;
-          border: none;
-          font-size: 24px;
-          cursor: pointer;
-        }
+      header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 20px;
+      }
 
-        .notification-count {
-          position: absolute;
-          top: -5px;
-          right: -5px;
-          background-color: red;
-          color: white;
-          border-radius: 50%;
-          padding: 2px 6px;
-          font-size: 12px;
-        }
+      h1 {
+        font-size: 36px; /* Increased font size */
+        color: #333;
+      }
 
-        .critical-errors {
-          background-color: #fff;
-          border: 1px solid #e0e0e0;
-          border-left: 4px solid #ff4d4f;
-          padding: 20px;
-          margin-bottom: 20px;
-        }
+      .notification-bell {
+        position: relative;
+        background: none;
+        border: none;
+        font-size: 36px; /* Increased icon size for the bell */
+        cursor: pointer;
+      }
 
-        .critical-errors h2 {
-          color: #ff4d4f;
-          margin-top: 0;
-        }
+      .notification-count {
+        position: absolute;
+        top: -5px;
+        right: -5px;
+        background-color: red;
+        color: white;
+        border-radius: 50%;
+        padding: 4px 8px;
+        font-size: 16px; /* Notification count size */
+      }
 
-        .critical-errors ul {
-          list-style-type: none;
-          padding: 0;
-        }
+      .critical-errors {
+        background-color: #fff;
+        border: 1px solid #e0e0e0;
+        border-left: 4px solid #ff4d4f;
+        padding: 30px; /* Increased padding */
+        margin-bottom: 20px;
+      }
 
-        .critical-errors li {
-          display: flex;
-          justify-content: space-between;
-          align-items: center;
-          margin-bottom: 10px;
-        }
+      .critical-errors h2 {
+        font-size: 32px; /* Increased font size */
+        color: #ff4d4f;
+        margin-top: 0;
+      }
 
-        .error-icon {
-          margin-right: 10px;
-        }
+      .critical-errors p {
+        font-size: 20px; /* Increased font size */
+      }
 
-        .navigation-buttons {
-          display: grid;
-          grid-template-columns: 1fr 1fr;
-          gap: 20px;
-          margin-bottom: 10px;
-        }
+      .critical-errors ul {
+        list-style-type: none;
+        padding: 0;
+      }
 
-        .navigation-buttons button {
-          font-family: 'Poppins', sans-serif;
-          font-size: 11px;
-          display: flex;
-          align-items: center;
-          border-radius: 10px;
-          padding: 15px;
-          background-color: #f5f5f5;
-          border: 1px solid #e0e0e0;
-          cursor: pointer;
-          text-align: left;
-        }
+      .critical-errors li {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 12px;
+        font-size: 20px; /* Increased font size */
+      }
 
-        .navigation-buttons button:hover {
-          background-color: #e1e1e1;
-          box-shadow: 1px 1px 1px #e1e1e1;
-        }
+      .critical-errors .error-icon {
+        font-size: 36px; /* Increased size of the error icon */
+        margin-right: 10px;
+      }
 
-        .navigation-buttons .icon {
-          font-size: 20px;
-          margin-right: 10px;
-        }
+      .navigation-buttons {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 20px;
+        margin-bottom: 20px;
+      }
 
-        .system-status {
-          background-color: #fff;
-          border: 1px solid #e0e0e0;
-          padding: 20px;
-          margin-bottom: 20px;
-        }
+      .navigation-buttons button {
+        font-family: 'Poppins', sans-serif;
+        font-size: 18px; /* Button text size */
+        display: flex;
+        align-items: center;
+        border-radius: 10px;
+        padding: 24px; /* Increased padding */
+        background-color: #f5f5f5;
+        border: 1px solid #e0e0e0;
+        cursor: pointer;
+        text-align: left;
+      }
 
-        .status-grid {
-          display: grid;
-          grid-template-columns: repeat(3, 1fr);
-          gap: 20px;
-        }
+      .navigation-buttons button:hover {
+        background-color: #e1e1e1;
+        box-shadow: 1px 1px 1px #e1e1e1;
+      }
 
-        .status-grid > div {
-          display: flex;
-          align-items: center;
-        }
+      .navigation-buttons .icon {
+        font-size: 36px; /* Increased icon size */
+        margin-right: 12px;
+      }
 
-        .status-value {
-          font-size: 24px;
-          font-weight: bold;
-        }
+      .system-status {
+        background-color: #fff;
+        border: 1px solid #e0e0e0;
+        padding: 30px; /* Increased padding */
+        margin-bottom: 20px;
+      }
 
-        @media (max-width: 768px) {
-          .navigation-buttons,
-          .status-grid,
-          footer {
-            grid-template-columns: 1fr;
-          }
+      .status-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 20px;
+      }
+
+      .status-grid > div {
+        display: flex;
+        align-items: center;
+        font-size: 20px; /* Status text font size */
+      }
+
+      .status-grid .icon {
+        font-size: 36px; /* Increased size of icons for the status summary */
+        margin-right: 10px;
+      }
+
+      .status-value {
+        font-size: 32px; /* Increased value size */
+        font-weight: bold;
+      }
+
+      @media (max-width: 768px) {
+        .navigation-buttons,
+        .status-grid,
+        footer {
+          grid-template-columns: 1fr;
         }
-        `}</style>
+      }
+      `}</style>
     </div>
   );
 }
