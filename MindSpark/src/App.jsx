@@ -1,8 +1,9 @@
 
 import Home from './components/Home/Home'
-
+import ErrorAnalyticsDashboard from './components/ErrorAnalyticsDashboard'
 import ErrorClassificationDashboard from "./components/ErrorClassificationDashborad"
 import ErrorDashboard from './components/ErrorDashboard'
+import LoginSignup from './components/login-signup'
 
 function App() {
 
@@ -10,10 +11,12 @@ function App() {
     <>
 
       {/* <Home/> */}
-      <ErrorDashboard/>
-      {/* <div className="Errordashborad">
-        <ErrorClassificationDashboard/>
-      </div> */}
+      {/* <ErrorDashboard/> */}
+      {/* <ErrorAnalyticsDashboard/> */}
+
+        {/* <ErrorClassificationDashboard/> */}
+
+      <LoginSignup/>
     </>
   )
 }
