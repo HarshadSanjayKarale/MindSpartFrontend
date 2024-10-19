@@ -20,7 +20,7 @@ export default function ErrorClassificationDashboard() {
   const [highAlerts, setHighAlerts] = useState(0);
   const [criticalCount, setCriticalCount] = useState(0); // New state for critical count
   const [infoCount, setInfoCount] = useState(0);
-  const [warningCount, setWarningCount] = useState(0);
+  const [lowCount, setLowCount] = useState(0); // Updated state for low count
   const [isDarkMode, setIsDarkMode] = useState(false);
   const navigate = useNavigate();
 
@@ -54,12 +54,12 @@ export default function ErrorClassificationDashboard() {
         const high = parsedLogs.filter(log => log.analysis?.severity === 'High').length;
         const critical = parsedLogs.filter(log => log.analysis?.severity === 'Critical').length; // New logic for critical
         const info = parsedLogs.filter(log => log.analysis?.severity === 'Info').length;
-        const warning = parsedLogs.filter(log => log.analysis?.severity === 'Warning').length;
+        const low = parsedLogs.filter(log => log.analysis?.severity === 'Low').length; // Updated logic for low
 
         setHighAlerts(high);
         setCriticalCount(critical); // Update critical count
         setInfoCount(info);
-        setWarningCount(warning);
+        setLowCount(low); // Update low count
       });
     }, 5000);
 
@@ -76,7 +76,7 @@ export default function ErrorClassificationDashboard() {
         return { backgroundColor: '#5452529b', color: 'white' };
       case 'High':
         return { backgroundColor: 'rgb(231, 64, 64)', color: 'white' };
-      case 'Warning':
+      case 'Low': // Updated style for low
         return { backgroundColor: 'orange', color: 'white' };
       case 'Info':
         return { backgroundColor: '#17a2b8', color: 'white' };
@@ -160,7 +160,7 @@ export default function ErrorClassificationDashboard() {
       fontSize: '0.9em',
       boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)',
     },
-    warningButton: {
+    lowButton: { // Updated button style for low
       padding: '10px 15px',
       border: '1px solid #ffc107',
       backgroundColor: '#ffc107',
@@ -227,7 +227,7 @@ export default function ErrorClassificationDashboard() {
       marginBottom: '10px',
       backgroundColor: isDarkMode ? '#2c2c2c' : 'white',
       fontFamily: 'Poppins, sans-serif',
-      margin:'10px',
+      margin: '10px',
     },
     alert: {
       border: `1px solid ${isDarkMode ? 'rgba(255, 255, 255, 0.1)' : 'rgba(255, 255, 255, 0.3)'}`,
@@ -272,8 +272,8 @@ export default function ErrorClassificationDashboard() {
             <button style={styles.infoButton} onClick={() => setInfoCount(0)}>
               Info: {infoCount}
             </button>
-            <button style={styles.warningButton} onClick={() => setWarningCount(0)}>
-              Warning: {warningCount}
+            <button style={styles.lowButton} onClick={() => setLowCount(0)}>  {/* Updated low button */}
+              Low: {lowCount}
             </button>
             <button style={styles.toggleButton} onClick={() => setIsDarkMode(!isDarkMode)}>
               {isDarkMode ? <Sun size={20} /> : <Moon size={20} />}
