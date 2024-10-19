@@ -19,7 +19,7 @@ export default function ErrorClassificationDashboard() {
   const [selectedError, setSelectedError] = useState(null);
   const [highAlerts, setHighAlerts] = useState(0);
   const [criticalCount, setCriticalCount] = useState(0); // New state for critical count
-  const [infoCount, setInfoCount] = useState(0);
+  const [mediumCount, setMediumCount] = useState(0); // Updated state for medium count
   const [lowCount, setLowCount] = useState(0); // Updated state for low count
   const [isDarkMode, setIsDarkMode] = useState(false);
   const navigate = useNavigate();
@@ -53,12 +53,12 @@ export default function ErrorClassificationDashboard() {
 
         const high = parsedLogs.filter(log => log.analysis?.severity === 'High').length;
         const critical = parsedLogs.filter(log => log.analysis?.severity === 'Critical').length; // New logic for critical
-        const info = parsedLogs.filter(log => log.analysis?.severity === 'Info').length;
+        const medium = parsedLogs.filter(log => log.analysis?.severity === 'Medium').length; // Updated logic for medium
         const low = parsedLogs.filter(log => log.analysis?.severity === 'Low').length; // Updated logic for low
 
         setHighAlerts(high);
         setCriticalCount(critical); // Update critical count
-        setInfoCount(info);
+        setMediumCount(medium); // Update medium count
         setLowCount(low); // Update low count
       });
     }, 5000);
@@ -78,7 +78,7 @@ export default function ErrorClassificationDashboard() {
         return { backgroundColor: 'rgb(231, 64, 64)', color: 'white' };
       case 'Low': // Updated style for low
         return { backgroundColor: 'orange', color: 'white' };
-      case 'Info':
+      case 'Medium': // Updated style for medium
         return { backgroundColor: '#17a2b8', color: 'white' };
       default:
         return { backgroundColor: 'gray', color: 'white' };
@@ -147,7 +147,7 @@ export default function ErrorClassificationDashboard() {
       fontSize: '0.9em',
       boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)',
     },
-    infoButton: {
+    mediumButton: { // Updated button style for medium
       padding: '10px 15px',
       border: '1px solid #17a2b8',
       backgroundColor: '#17a2b8',
@@ -269,8 +269,8 @@ export default function ErrorClassificationDashboard() {
             <button style={styles.criticalButton} onClick={() => setHighAlerts(0)}>
               High Alerts: {highAlerts}
             </button>
-            <button style={styles.infoButton} onClick={() => setInfoCount(0)}>
-              Info: {infoCount}
+            <button style={styles.mediumButton} onClick={() => setMediumCount(0)}>  {/* Updated medium button */}
+              Medium: {mediumCount}
             </button>
             <button style={styles.lowButton} onClick={() => setLowCount(0)}>  {/* Updated low button */}
               Low: {lowCount}
